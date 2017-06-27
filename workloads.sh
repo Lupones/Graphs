@@ -9,7 +9,9 @@ touch workloads.out
 
 for f in $DIR
 do
-          workload=$(echo $f | cut -d'_' -f 2)
-	  echo $workload
-          echo $workload >>workloads.out
+          if [[ $f == *Total* ]]
+          then
+                workload=$(echo $f | cut -d'_' -f 2)
+                echo $workload >>workloads.out
+          fi
 done

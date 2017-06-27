@@ -21,7 +21,9 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 	for experiment in Total Interval; do
 		outputdir=$inputdir
 		# IPC, Hits L3 and Occupancy graph command
-        	GRAPH=$(echo python3 $simplotdir/simplot.py -g 3 1 -o $outputdir/bargraph-$fileType-$workload-$experiment.pdf --title '"'Comparative graphs for $workload '('$experiment 'measurement)''"')
+        	GRAPH=$(echo python3 $simplotdir/simplot.py -g 4 1 -o $outputdir/bargraph-$fileType-$workload-$experiment.pdf ) 
+
+#--title '"'Comparative graphs for $workload '('$experiment 'measurement)''"')
 
 
 		touch commnads.out
