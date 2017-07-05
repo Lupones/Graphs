@@ -2,7 +2,7 @@
 
 outputdir=/home/lupones/XPL3/outputCSVfiles/comparisonGraphs/
 inputdirSH=/home/lupones/XPL3/outputCSVfiles/numWaysDataGraphs/
-inputdirINDIV=/home/lupones/XPL3/outputCSVfiles/numWaysDataGraphs/npIndivTotal
+inputdirINDIV=/home/lupones/XPL3/outputCSVfiles/indivExecGraphs/
 simplotdir=/home/lupones/simplot/
 workloadsFile=/home/lupones/XPL3/workloads.out
 
@@ -57,17 +57,17 @@ cd $inputdirSH
 					axnum=$((axnum+1))
 
 					# individual execution interval graph
-			        	fileName=$i"-intervalDataTable.csv"
-	
-	        			PLOT=$PLOT" "$(echo --plot "'"{kind: l, datafile: $inputdirINDIV/$fileName, index: 0, cols: [1], ylabel: IPC, xlabel: Interval, labels: [$i"-indiv-IPC"]}"'" )
-        				PLOT=$PLOT" "$(echo --plot "'"{axnum: $axnum, yright: True, color: ['"'#d490c6'"'], kind: l, datafile: $inputdirINDIV/$fileName, index: 0, cols: [3], ylabel: hits/storage, xlabel: Interval, labels: [$i"-indiv-hits/storage"], legend_options: {loc: 2}}"'" )
+					for ways in 20; do	
+						fileName=$i"-"$ways"ways-intervalDataTable.csv"
 
-
+	        				PLOT=$PLOT" "$(echo --plot "'"{kind: l, datafile: $inputdirINDIV/$i/$fileName, index: 0, cols: [1], ylabel: IPC, xlabel: Interval, labels: [$i"-"$ways"ways-indiv-IPC"]}"'" )
+        					PLOT=$PLOT" "$(echo --plot "'"{axnum: $axnum, yright: True, color: ['"'#d490c6'"'], kind: l, datafile: $inputdirINDIV/$i/$fileName, index: 0, cols: [3], ylabel: hits/storage, xlabel: Interval, labels: [$i"-"$ways"ways-indiv-hits/storage"], legend_options: {loc: 5}}"'" )
+					
+					done
 					axnum=$((axnum+1))
 					core=$((core+1))
 					
       				done
-
  			done <<< $workload
 
 			PLOT=$PLOT" "$(echo --equal-xaxes)
