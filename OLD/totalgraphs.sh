@@ -10,7 +10,7 @@ function join_by { local IFS="$1"; shift; echo "$*"; }
 
 cd $inputdir
 for experiment in Total Interval; do
-	outputdir=$inputdir
+    outputdir=$inputdir
 	# IPC total and Hits L3 graph command
         GRAPH=$(echo python3 $simplotdir/simplot.py -g 2 1 -g 2 1 -o $outputdir/graphs-totalERR-$fileType-$experiment.pdf)
 
@@ -45,9 +45,12 @@ for experiment in Total Interval; do
         #	GRAPH=$GRAPH" "$(echo $i)
 	#done
 	#echo $GRAPH
+	echo $GRAPH
+	exit
 
         echo $GRAPH >>./commands.out
-        bash ./commands.out
+        
+	bash ./commands.out
         rm -f ./commands.out
 
 

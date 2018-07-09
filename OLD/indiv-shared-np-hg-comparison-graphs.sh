@@ -4,7 +4,7 @@ outputdir=/home/lupones/XPL3/outputCSVfiles/comparisonGraphs/
 inputdirSH=/home/lupones/XPL3/outputCSVfiles/numWaysDataGraphs/
 inputdirINDIV=/home/lupones/XPL3/outputCSVfiles/indivExecGraphs/
 simplotdir=/home/lupones/simplot/
-workloadsFile=/home/lupones/XPL3/workloads.out
+workloadsFile=/home/lupones/XPL3/workloads2.out
 
 function join_by { local IFS="$1"; shift; echo "$*"; }
 
@@ -19,7 +19,7 @@ cd $inputdirSH
 
 			# have in a single pdf all the graphs of the workload
  			PLOT=$(echo python3 $simplotdir/simplot.py -g 2 2 -g 2 2 -g 2 2 -g 2 2 -g 2 2 -g 2 2 -g 2 2 -g 2 2 -o $outputdir/comparisonGraph-$workload.pdf)
-			
+            PLOTaux=$(echo python3 $simplotdir/simplot.py -g 1 1 -o $outputdir/ipc-ways-$workload.pdf)			
 			# loop over all the apps in the workload
 			# generate a graph for each one 
 			core=0
@@ -50,6 +50,15 @@ cd $inputdirSH
 
 					# individual execution num ways graph
         				fileName=$i"-numWaysDataTable.csv"
+
+                        PLOTaux=$(echo python3 $simplotdir/simplot.py -g 1 1 -o $outputdir/ipc-ways-$i.pdf)
+                        PLOTaux=$PLOTaux" "$(echo --plot "'"{markeredgewidth: 0, markersize: 4, kind: ml, datafile: $inputdirINDIV/$fileName, index: 0, cols: [1], linewidth: 2, ymax: 3, marker: ["X"], ylabel: IPC, xlabel: Espacio ocupado LLC / MB}"'" )
+                        touch com.out
+                        echo $PLOTaux
+                        echo $PLOTaux >./com.out
+                        bash ./com.out
+                        rm -f ./com.out
+
 
         				PLOT=$PLOT" "$(echo --plot "'"{markeredgewidth: 0, markersize: 4, kind: ml, datafile: $inputdirINDIV/$fileName, index: 0, cols: [1], linewidth: 0, marker: ["X"], ylabel: IPC, xlabel: Number of ways, labels: [$i"-indiv-IPC"]}"'" )
         				PLOT=$PLOT" "$(echo --plot "'"{axnum: $axnum, markeredgewidth: 0, markersize: 4, yright: True, color: ['"'#d490c6'"'], kind: ml, linewidth: 0, marker: ["s"], datafile: $inputdirINDIV/$fileName, index: 0, cols: [3], ylabel: hits/storage, xlabel: Number of ways, labels: [$i"-indiv-hits/storage"], legend_options: {loc: 2}}"'" )
