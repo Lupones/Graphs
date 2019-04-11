@@ -1,7 +1,7 @@
 # !/bin/bash
 
-inputdir=/home/lupones/XPL3/outputCSVfiles/$1/workloads$1.yaml
-outputdir=/home/lupones/XPL3/outputCSVfiles/$1/workloads$2.out
+inputdir=/home/lupones/XPL3/outputCSVfiles/$1/$2.yaml
+outputdir=/home/lupones/XPL3/outputCSVfiles/$1/$2.out
 
 touch $outputdir
 
